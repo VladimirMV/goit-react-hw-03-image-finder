@@ -31,17 +31,16 @@ class Modal extends Component {
     return createPortal(
       <div onClick={this.onOverlayClose} className="Overlay">
         <div className="Modal">
-          <img src={largeImageURL} alt="img" />
+          <img src={largeImageURL} alt="img" className="Img-Modal" />
         </div>
       </div>,
       ModalRoot
     );
   }
 }
-
-export default Modal;
-
 Modal.propTypes = {
   image: PropTypes.object,
   onClose: PropTypes.func,
 };
+export default Modal;
+

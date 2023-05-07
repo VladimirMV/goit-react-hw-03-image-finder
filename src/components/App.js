@@ -16,17 +16,9 @@ class App extends Component {
     page: 1,
   };
 
-  //   componentDidUpdate(prevProps, prevState) {
-  //     if (this.state.inputData !== prevState.inputData) {
-  //       this.handleSubmit();
-  //     }
-  //   }
-
   handleSubmit = async inputData => {
-    // const { inputData, page } = this.state;
     const page = 1;
-    this.state.items = [];
-    console.log('inputData=', inputData, page);
+    this.setState({ items: [], status: 'idle' });
     if (inputData.trim() === '') {
       Notiflix.Notify.info('You cannot search by empty field, try again.');
       return;
@@ -55,14 +47,13 @@ class App extends Component {
 
   onNextPage = async () => {
     const { inputData, page } = this.state;
-    console.log('inputData next page=', inputData, page);
     this.setState({ status: 'pending' });
 
     try {
       const { hits } = await fetchImages(inputData, page + 1);
       this.setState(prevState => ({
         items: [...prevState.items, ...hits],
-        page: prevState.page + 1, // Increment page by 1 only on successful onNextPage.
+        page: prevState.page + 1,
         status: 'resolved',
       }));
     } catch (error) {
