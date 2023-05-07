@@ -6,7 +6,7 @@ const Loader = () => {
   return (
     <div className="Spinner">
       <PropagateLoader
-        size="15"
+        size="15px"
         color="rgb(37, 37, 173)"
        loading={true}
       />
