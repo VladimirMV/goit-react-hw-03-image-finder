@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Button from './Button';
 import ImageGallery from './ImageGallery';
 import './App.css';
@@ -28,6 +29,7 @@ class App extends Component {
         return;
       } else {
         try {
+          this.setState({ status: 'pending' });
           const { totalHits, hits } = await fetchImages(inputData, page);
           if (hits.length < 1) {
             this.setState({ status: 'idle' });
@@ -50,7 +52,6 @@ class App extends Component {
   }
 
   handleSubmit = inputData => {
-    console.log('handleSubmit = ', inputData, this.state.inputData);
     if (this.state.inputData === inputData) {
       return;
     }
@@ -84,5 +85,21 @@ class App extends Component {
     );
   }
 }
-
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 export default App;
+// Цей код експортує компонент App, який використовує компоненти Searchbar, Loader, Button та ImageGallery.
+// Компонент App відображає ці компоненти в залежності від статусу пошуку, який визначається за змінами в inputData і page.
+// Коли користувач вводить запит, компонент Searchbar передає його пошуковому обробнику handleSubmit.
+// Потім handleSubmit встановлює значення inputData в стані компонента App і скидає список зображень items,
+// скидає статус у "idle" і встановлює page в 1.
+// Компонент componentDidUpdate запускається при кожній зміні стану App.Якщо новий inputData або page відрізняється від попереднього стану,
+// він перевіряє, що inputData не порожній, і, якщо це так, встановлює стан status в "pending".
+// Потім він виконує пошук за допомогою функції fetchImages, використовуючи inputData і page.
+// Якщо є хоча б один збіг, він додає результати пошуку до списку items і встановлює стан status "resolved".
+// Якщо результати не знайдені, він виводить повідомлення про помилку, встановлює стан "idle".
+// Якщо при виконанні сталася помилка, він встановлює стан "rejected".
+// Потім компонент ImageGallery відображає знайдені зображення залежно від status та кількості знайдених зображень.
+// Якщо отримано менше зображень, ніж totalHits, відображається компонент Button,
+//   який дозволяє завантажити наступну сторінку результатів пошуку.

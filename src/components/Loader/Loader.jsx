@@ -3,6 +3,7 @@ import { PropagateLoader } from 'react-spinners';
 import './Loader.css';
 
 const Loader = () => {
+  console.log("Лоудер стартонул");
   return (
     <div className="Spinner">
       <PropagateLoader

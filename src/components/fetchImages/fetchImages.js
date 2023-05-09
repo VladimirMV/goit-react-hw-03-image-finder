@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export async function fetchImages(inputData, page) {
-  console.log('inputData fetchImages=', inputData, page);
+  // console.log('inputData fetchImages=', inputData, page);
   const searchParams = new URLSearchParams({
     key: process.env.REACT_APP_API_KEY,
     q: inputData,
