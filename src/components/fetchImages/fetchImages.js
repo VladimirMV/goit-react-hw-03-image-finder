@@ -15,3 +15,4 @@ export async function fetchImages(inputData, page) {
 
   return images.data;
 }
+// функция axios.get делает GET-запрос на API Pixabay и получает массив данных с объектами изображений.
