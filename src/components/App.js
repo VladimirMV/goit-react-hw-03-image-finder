@@ -36,10 +36,10 @@ class App extends Component {
             Notiflix.Notify.failure(
               'Sorry, there are no images matching your search query. Please try again.'
             );
+            return;
           } else {
             this.setState(prevState => ({
               items: [...prevState.items, ...hits],
-              inputData: inputData,
               totalHits: totalHits,
               status: 'resolved',
             }));
