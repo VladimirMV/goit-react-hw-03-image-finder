@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './Searchbar.css';
 import { ImSearch } from 'react-icons/im';
+import Notiflix from 'notiflix';
 
 class Searchbar extends Component {
   state = {
@@ -13,12 +14,17 @@ class Searchbar extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    if (this.state.inputData.trim() === '') {
+      Notiflix.Notify.info('You cannot search by empty field, try again.');
+      return;
+    }
     this.props.onSubmit(this.state.inputData);
     this.setState({ inputData: '' });
   };
 
   render() {
     const { inputData } = this.state.inputData;
+
     return (
       <header className="Searchbar">
         <form className="SearchForm" onSubmit={this.handleSubmit}>
@@ -31,6 +37,7 @@ class Searchbar extends Component {
             autoComplete="off"
             autoFocus
             placeholder="Search  photos"
+            required
           />
           <button type="submit" className="SearchForm-button">
             <ImSearch size={25} />
